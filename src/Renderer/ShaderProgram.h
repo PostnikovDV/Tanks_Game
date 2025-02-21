@@ -2,8 +2,9 @@
 
 #include <glad/glad.h>
 #include <string>
+#include <external/glm/mat4x4.hpp>
 
-namespace Renderer
+namespace RenderEngine
 {
 	class ShaderProgram 
 	{
@@ -21,9 +22,10 @@ namespace Renderer
 			std::swap(shader1.m_isCompiled, shader2.m_isCompiled);
 			std::swap(shader1.m_ID, shader2.m_ID);
 		}
-		
 
 		void use() const;
+		void setInt(const std::string& name, const GLint value);
+		void setMatrix4(const std::string& name, const glm::mat4& matrix);
 		ShaderProgram(const ShaderProgram&) = delete;
 		ShaderProgram& operator = (const ShaderProgram&) = delete;
 		ShaderProgram() = delete;

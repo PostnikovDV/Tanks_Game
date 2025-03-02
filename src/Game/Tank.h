@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "external/glm/vec2.hpp"
+#include "glm/vec2.hpp"
 
 namespace RenderEngine
 {

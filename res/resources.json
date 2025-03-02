@@ -3,7 +3,7 @@
 		{
 			"name"       : "spriteShader",
 			"filepath_v" : "res/shaders/vSprite.txt",
-			"filepath_f" : "res/shaders/fSprite.txt",
+			"filepath_f" : "res/shaders/fSprite.txt"
 		}
 	],
 
@@ -11,12 +11,10 @@
 		{
 			"name"             : "mapTextureAtlas",
 			"filepath"         : "res/textures/map_16x16.png",
-			"widht"            : 128,
-			"height"           : 128,
 			"subTextureWidht"  : 16,
 			"subTextureHeight" : 16,
 
-			"subTexture" : [
+			"subTextures" : [
 				"block",
 				"topBlock",
 				"bottomBlock",
@@ -54,12 +52,10 @@
 		{
 			"name"             : "tanksTextureAtlas",
 			"filepath"         : "res/textures/tanks.png",
-			"widht"            : 256,
-			"height"           : 256,
 			"subTextureWidht"  : 16,
 			"subTextureHeight" : 16,
 
-			"subTexture" : [
+			"subTextures" : [
 				"yellowType1_Top1",
 				"yellowType1_Top2",
 				"yellowType1_Left1",
@@ -67,7 +63,7 @@
 				"yellowType1_Bottom1",
 				"yellowType1_Bottom2",
 				"yellowType1_Right1",
-				"yellowType1_Right2",
+				"yellowType1_Right2"
 			]
 		}
 		

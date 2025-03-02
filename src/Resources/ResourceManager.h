@@ -48,7 +48,7 @@ public:
 
 	static std::shared_ptr<RenderEngine::Sprite> getSprite(const std::string& spriteName);
 
-	static std::shared_ptr<RenderEngine::AnimatedSprite> loadAnimationSprite(
+	static std::shared_ptr<RenderEngine::AnimatedSprite> loadAnimatedSprite(
 																		const std::string& spriteName
 																		, const std::string& textureName
 																		, const std::string& shaderName
@@ -57,7 +57,7 @@ public:
 																		, const std::string subTextureName = "default"
 	);
 
-	static std::shared_ptr<RenderEngine::AnimatedSprite> getAnimationSprite(const std::string& spriteName);
+	static std::shared_ptr<RenderEngine::AnimatedSprite> getAnimatedSprite(const std::string& spriteName);
 
 	static std::shared_ptr<RenderEngine::Texture2D> loadTextureAtlas(
 																std::string textureName
@@ -65,6 +65,8 @@ public:
 																, std::vector<std::string> subTextures
 																, const unsigned int subTextureWidht
 																, const unsigned int subTextureHeight);
+
+	static bool loadJsonResources(const std::string jsonPath);
 
 private:
 	static std::string getFileString(const std::string& relativeFilePath);

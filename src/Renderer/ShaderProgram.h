@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 #include <string>
-#include <external/glm/mat4x4.hpp>
+#include <glm/mat4x4.hpp>
 
 namespace RenderEngine
 {

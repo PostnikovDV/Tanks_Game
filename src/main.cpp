@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <external/glm/vec2.hpp>
+#include "glm/vec2.hpp"
 #include <iostream>
 
 #include "Resources/ResourceManager.h"

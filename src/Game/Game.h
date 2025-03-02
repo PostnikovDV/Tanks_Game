@@ -1,6 +1,6 @@
 #pragma once
 #include <array>
-#include <external/glm/vec2.hpp>
+#include <glm/vec2.hpp>
 #include <memory>
 
 class Tank;

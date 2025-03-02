@@ -1,8 +1,8 @@
 #include "Sprite.h"
 #include "ShaderProgram.h"
 #include "Texture2D.h"
-#include "external/glm/mat4x4.hpp"
-#include "external/glm/gtc/matrix_transform.hpp"
+#include "glm/mat4x4.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include "Renderer.h"
 
 namespace RenderEngine

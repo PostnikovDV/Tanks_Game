@@ -19,6 +19,7 @@ ResourceManager::TexturesMap ResourceManager::m_textures;
 ResourceManager::SpritesMap ResourceManager::m_sprites;
 ResourceManager::AnimatedSpritesMap ResourceManager::m_animatedSprites;
 std::string ResourceManager::m_path;
+std::vector<std::vector<std::string>> ResourceManager::m_levels;
 
 void ResourceManager::unloadAllResources()
 {
@@ -130,8 +131,6 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::getTexture(const std::
 std::shared_ptr<RenderEngine::Sprite> ResourceManager::loadSprite(const std::string& spriteName
 	, const std::string& textureName
 	, const std::string& shaderName
-	, const unsigned int spriteWidht
-	, const unsigned int spriteHeight
 	, const std::string subTextureName)
 {
 	const auto pTexture = getTexture(textureName);
@@ -148,11 +147,10 @@ std::shared_ptr<RenderEngine::Sprite> ResourceManager::loadSprite(const std::str
 
 	std::shared_ptr<RenderEngine::Sprite> newSprite = m_sprites.emplace(spriteName,
 		std::make_shared<RenderEngine::Sprite>(
-			pTexture
-			, subTextureName
-			, pShader
-			, glm::vec2(0.f, 0.f)
-			, glm::vec2(spriteWidht, spriteHeight))).first->second;
+												pTexture
+												, subTextureName
+												, pShader
+	)).first->second;
 
 	return newSprite;
 }
@@ -214,8 +212,6 @@ std::shared_ptr<RenderEngine::AnimatedSprite> ResourceManager::loadAnimatedSprit
 	const std::string& spriteName
 	, const std::string& textureName
 	, const std::string& shaderName
-	, const unsigned int spriteWidht
-	, const unsigned int spriteHeight
 	, const std::string subTextureName)
 {
 	const auto pTexture = getTexture(textureName);
@@ -235,8 +231,7 @@ std::shared_ptr<RenderEngine::AnimatedSprite> ResourceManager::loadAnimatedSprit
 													pTexture
 													, subTextureName
 													, pShader
-													, glm::vec2(0.f, 0.f)
-													, glm::vec2(spriteWidht, spriteHeight))).first->second;
+	)).first->second;
 
 	return newSprite;
 }
@@ -270,7 +265,7 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 
 	if (!parseResult)
 	{
-		std::cerr << "JSON parse error" << rapidjson::GetParseError_En(parseResult.Code()) <<"(" << parseResult.Offset() << ")" << std::endl;
+		std::cerr << "JSON parse error " << rapidjson::GetParseError_En(parseResult.Code()) <<"(" << parseResult.Offset() << ")" << std::endl;
 		std::cerr << "In JSON file: " << jsonPath << std::endl;
 		return false;
 	}
@@ -314,6 +309,26 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 	}
 
 
+	auto sprites = document.FindMember("sprites");
+
+	if (sprites != document.MemberEnd())
+	{
+		for (const auto& currentSprite : sprites->value.GetArray())
+		{
+			const std::string name = currentSprite["name"].GetString();
+			const std::string textureAtlas = currentSprite["textureAtlas"].GetString();
+			const std::string shader = currentSprite["shader"].GetString();
+			const std::string subTuxtureName = currentSprite["subTextureName"].GetString();
+
+			auto pSprite = loadSprite(name, textureAtlas, shader, subTuxtureName);
+
+			if (!pSprite)
+			{
+				continue;
+			}
+		}
+	}
+
 	auto animatedSprites = document.FindMember("animatedSprites");
 
 	if (animatedSprites != document.MemberEnd())
@@ -323,11 +338,9 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 			const std::string name = currentAnimatedSprite["name"].GetString();
 			const std::string textureAtlas = currentAnimatedSprite["textureAtlas"].GetString();
 			const std::string shader = currentAnimatedSprite["shader"].GetString();
-			const unsigned int initialWidht = currentAnimatedSprite["initialWidht"].GetUint();
-			const unsigned int initialHeight = currentAnimatedSprite["initialHeight"].GetUint();
-			const std::string initailSubTuxture = currentAnimatedSprite["initailSubTuxture"].GetString();
+			const std::string initailSubTexture = currentAnimatedSprite["initailSubTexture"].GetString();
 
-			auto pAnimatedSprite = loadAnimatedSprite(name, textureAtlas, shader, initialWidht, initialHeight, initailSubTuxture);
+			auto pAnimatedSprite = loadAnimatedSprite(name, textureAtlas, shader, initailSubTexture);
 
 			if (!pAnimatedSprite)
 			{
@@ -357,6 +370,39 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 				pAnimatedSprite->insertState(stateName, std::move(frames));
 			}
 
+		}
+	}
+
+
+	auto levelsIt = document.FindMember("levels");
+
+	if (levelsIt != document.MemberEnd())
+	{
+		for (const auto& currentLevel : levelsIt->value.GetArray())
+		{
+			const auto descriptionArray = currentLevel["description"].GetArray();
+
+			std::vector<std::string> levelRows;
+			levelRows.reserve(descriptionArray.Size());
+			size_t maxLenght{ 0 };
+			for (const auto& currentRow : descriptionArray)
+			{
+				levelRows.emplace_back(currentRow.GetString());
+				if (maxLenght < levelRows.back().length())
+				{
+					maxLenght = levelRows.back().length();
+				}
+			}
+
+			for (auto& currentRow : levelRows)
+			{
+				while (currentRow.length() < maxLenght)
+				{
+					currentRow.append("D");
+				}
+				
+			}
+			m_levels.emplace_back(std::move(levelRows));
 		}
 	}
 

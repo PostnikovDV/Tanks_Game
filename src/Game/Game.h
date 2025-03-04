@@ -4,6 +4,7 @@
 #include <memory>
 
 class Tank;
+class Level;
 
 class Game
 {
@@ -31,4 +32,5 @@ private:
 	EGameState m_ECurrentGameState{ EGameState::Active };
 
 	std::unique_ptr<Tank> m_pTank;
+	std::unique_ptr<Level> m_level;
 };

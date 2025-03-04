@@ -1,22 +1,20 @@
 #include "Tank.h"
-#include "../Renderer/AnimatedSprite.h"
+#include "../../Renderer/AnimatedSprite.h"
 
 
-Tank::Tank(std::shared_ptr<RenderEngine::AnimatedSprite> sprite, const float velocity, const glm::vec2& position)
-	: m_pSprite(std::move(sprite)), m_velocity(velocity), m_position(position), m_moveOffset(glm::vec2(0.f, 1.f))
+Tank::Tank(std::shared_ptr<RenderEngine::AnimatedSprite> sprite, const float velocity, const glm::vec2& position, const glm::vec2& size)
+	: IGameObject(position, size, 0.f),
+	m_pSprite(std::move(sprite)), m_velocity(velocity), m_moveOffset(glm::vec2(0.f, 1.f))
 {
-	m_pSprite->setPosition(m_position);
 }
 
 void Tank::render() const
 {
-	m_pSprite->render();
+	m_pSprite->render(m_position, m_size, m_rotation);
 }
 
 void Tank::setOrientation(const EOrientation orient)
 {
-	if (m_eOrientation == orient)
-		return;
 	m_eOrientation = orient;
 
 	switch (m_eOrientation)
@@ -44,7 +42,6 @@ void Tank::setOrientation(const EOrientation orient)
 	default:
 		break;
 	}
-
 }
 
 void Tank::move(const bool move)
@@ -57,7 +54,6 @@ void Tank::update(const uint64_t delta)
 	if (m_move)
 	{
 		m_position += delta * m_velocity * m_moveOffset;
-		m_pSprite->setPosition(m_position);
 		m_pSprite->update(delta);
 	}
 }

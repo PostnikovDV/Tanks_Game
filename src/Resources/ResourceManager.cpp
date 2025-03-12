@@ -94,11 +94,11 @@ std::shared_ptr<RenderEngine::ShaderProgram> ResourceManager::getShaderProgram(c
 std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTexture(const std::string& textureName, const std::string& texturePath)
 {
 	int channels{ 0 };
-	int widht{ 0 };
+	int width{ 0 };
 	int height{ 0 };
 
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* pixels = stbi_load(std::string(m_path + "/" + texturePath).c_str(), &widht, &height, &channels, 0);
+	unsigned char* pixels = stbi_load(std::string(m_path + "/" + texturePath).c_str(), &width, &height, &channels, 0);
 
 	if (!pixels)
 	{
@@ -107,7 +107,7 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTexture(const std:
 	}
 
 	std::shared_ptr<RenderEngine::Texture2D> newTextures = m_textures.emplace(textureName,
-		std::make_shared<RenderEngine::Texture2D>(widht, height, pixels, channels, GL_NEAREST, GL_CLAMP_TO_EDGE)).first->second;
+		std::make_shared<RenderEngine::Texture2D>(width, height, pixels, channels, GL_NEAREST, GL_CLAMP_TO_EDGE)).first->second;
 
 	stbi_image_free(pixels);
 	return newTextures;
@@ -168,14 +168,14 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTextureAtlas(
 																	std::string textureName
 																	, std::string texturePath
 																	, std::vector<std::string> subTextures
-																	, const unsigned int subTextureWidht
+																	, const unsigned int subTextureWidth
 																	, const unsigned int subTextureHeight)
 {
 	auto pTexture = loadTexture(std::move(textureName), std::move(texturePath));
 
 	if (pTexture)
 	{
-		const unsigned int textureWidht = pTexture->getWidht();
+		const unsigned int textureWidth = pTexture->getWidth();
 		const unsigned int textureHeight = pTexture->getHeight();
 		
 		unsigned int currentSubTextureOffsetX = 0;
@@ -183,17 +183,17 @@ std::shared_ptr<RenderEngine::Texture2D> ResourceManager::loadTextureAtlas(
 
 		for (auto& currentSubTextureName : subTextures)
 		{
-			glm::vec2 leftBottomUV(static_cast<float>(currentSubTextureOffsetX + 0.01f) / textureWidht
+			glm::vec2 leftBottomUV(static_cast<float>(currentSubTextureOffsetX + 0.01f) / textureWidth
 								 , static_cast<float>(currentSubTextureOffsetY - subTextureHeight + 0.01f) / textureHeight);
 
-			glm::vec2 rightTopUV(static_cast<float>(currentSubTextureOffsetX + subTextureWidht - 0.01f) / textureWidht
+			glm::vec2 rightTopUV(static_cast<float>(currentSubTextureOffsetX + subTextureWidth - 0.01f) / textureWidth
 				, static_cast<float>(currentSubTextureOffsetY - 0.01f) / textureHeight);
 
 			pTexture->addSubTexture2D(std::move(currentSubTextureName), leftBottomUV, rightTopUV);
 
-			currentSubTextureOffsetX += subTextureWidht;
+			currentSubTextureOffsetX += subTextureWidth;
 
-			if (currentSubTextureOffsetX >= textureWidht)
+			if (currentSubTextureOffsetX >= textureWidth)
 			{
 				currentSubTextureOffsetX = 0;
 				currentSubTextureOffsetY -= subTextureHeight;
@@ -247,7 +247,7 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 		{
 			const std::string name = currentTextureAtlas["name"].GetString();
 			const std::string filePath = currentTextureAtlas["filepath"].GetString();
-			const unsigned int subTextureWidht = currentTextureAtlas["subTextureWidht"].GetUint();
+			const unsigned int subTextureWidth = currentTextureAtlas["subTextureWidth"].GetUint();
 			const unsigned int subTextureHeight = currentTextureAtlas["subTextureHeight"].GetUint();
 		
 			const auto subTexturesArray = currentTextureAtlas["subTextures"].GetArray();
@@ -259,7 +259,7 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 			{
 				subTextures.emplace_back(currentSubTexture.GetString());
 			}
-			loadTextureAtlas(name, filePath, std::move(subTextures), subTextureWidht, subTextureHeight);
+			loadTextureAtlas(name, filePath, std::move(subTextures), subTextureWidth, subTextureHeight);
 		}
 	}
 

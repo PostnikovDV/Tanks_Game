@@ -2,11 +2,11 @@
 
 namespace RenderEngine
 {
-	Texture2D::Texture2D(const GLuint widht, const GLuint height,
+	Texture2D::Texture2D(const GLuint Width, const GLuint height,
 		const unsigned char* data,
 		const unsigned int channels,
 		const GLenum filter,
-		const GLenum wrapMode): m_widht(widht), m_height(height)
+		const GLenum wrapMode): m_Width(Width), m_height(height)
 	{
 		switch (channels)
 		{
@@ -24,7 +24,7 @@ namespace RenderEngine
 		glGenTextures(1, &m_ID);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, m_ID);
-		glTexImage2D(GL_TEXTURE_2D, 0, m_mode, widht, height, 0, m_mode, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, m_mode, Width, height, 0, m_mode, GL_UNSIGNED_BYTE, data);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);

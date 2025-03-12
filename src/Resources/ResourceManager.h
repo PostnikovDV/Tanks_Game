@@ -50,7 +50,7 @@ public:
 																std::string textureName
 																, std::string texturePath
 																, std::vector<std::string> subTextures
-																, const unsigned int subTextureWidht
+																, const unsigned int subTextureWidth
 																, const unsigned int subTextureHeight);
 
 	static bool loadJsonResources(const std::string jsonPath);

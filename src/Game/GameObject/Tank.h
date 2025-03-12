@@ -22,11 +22,7 @@ public:
 	};
 
 	Tank(
-		std::shared_ptr<RenderEngine::Sprite> spriteTop
-		, std::shared_ptr<RenderEngine::Sprite> spriteBottom
-		, std::shared_ptr<RenderEngine::Sprite> spriteLeft
-		, std::shared_ptr<RenderEngine::Sprite> spriteRight
-		, const float velocity
+		const float velocity
 		, const glm::vec2& position
 		, const glm::vec2& size
 	);

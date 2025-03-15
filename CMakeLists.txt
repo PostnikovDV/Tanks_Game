@@ -39,6 +39,8 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObject/IGameObject.cpp
 	src/Game/GameObject/BrickWall.cpp
 	src/Game/GameObject/BrickWall.h
+	src/Game/GameObject/BetonWall.cpp
+	src/Game/GameObject/BetonWall.h
 	)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

@@ -122,6 +122,12 @@
 			"initialSubTexture": "brickWall_TopRight"
 		},
 		{
+			"name": "betonWall",
+			"textureAtlas": "mapTextureAtlas_8x8",
+			"shader": "spriteShader",
+			"initialSubTexture": "betonWall"
+		},
+		{
 			"name": "tankSpriteTop",
 			"textureAtlas": "tanksTextureAtlas",
 			"shader": "spriteShader",

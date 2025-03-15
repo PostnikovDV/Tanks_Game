@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "GameObject/BrickWall.h"
+#include "GameObject/BetonWall.h"
 
 #define BLOCK_SIZE 16
 
@@ -21,6 +22,21 @@ std::shared_ptr<IGameObject> createGameObjectFromDescription(const char descript
 		break;
 	case '4':
 		return std::make_shared<BrickWall>(BrickWall::EBrickWallType::All, position, size, rotation);
+		break;
+	case '5':
+		return std::make_shared<BetonWall>(BetonWall::EBetonWallType::Right, position, size, rotation);
+		break;
+	case '6':
+		return std::make_shared<BetonWall>(BetonWall::EBetonWallType::Bottom, position, size, rotation);
+		break;
+	case '7':
+		return std::make_shared<BetonWall>(BetonWall::EBetonWallType::Left, position, size, rotation);
+		break;
+	case '8':
+		return std::make_shared<BetonWall>(BetonWall::EBetonWallType::Top, position, size, rotation);
+		break;
+	case '9':
+		return std::make_shared<BetonWall>(BetonWall::EBetonWallType::All, position, size, rotation);
 		break;
 	case 'G':
 		return std::make_shared<BrickWall>(BrickWall::EBrickWallType::BottomLeft, position, size, rotation);

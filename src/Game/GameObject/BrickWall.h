@@ -64,4 +64,6 @@ private:
 
 	std::array<EBrickState, 4> m_CurrentBrickState;
 	std::array<std::shared_ptr<RenderEngine::Sprite>, 15> m_Sprites;
+
+	std::array<glm::vec2, 4> m_blockOffSets;
 };

@@ -246,7 +246,7 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 		for (const auto& currentTextureAtlas : textureAtlases->value.GetArray())
 		{
 			const std::string name = currentTextureAtlas["name"].GetString();
-			const std::string filePath = currentTextureAtlas["filepath"].GetString();
+			const std::string filePath = currentTextureAtlas["filePath"].GetString();
 			const unsigned int subTextureWidth = currentTextureAtlas["subTextureWidth"].GetUint();
 			const unsigned int subTextureHeight = currentTextureAtlas["subTextureHeight"].GetUint();
 		

@@ -2,8 +2,8 @@
 #include "../../Renderer/Sprite.h"
 #include "../../Resources/ResourceManager.h"
 
-Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotation)
-	: IGameObject(position, size, rotation)
+Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
+	: IGameObject(position, size, rotation, layer)
 	, m_currentState(EEagleState::Alive)
 	, m_Sprites{
 				ResourceManager::getSprite("eagle")
@@ -14,7 +14,7 @@ Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotat
 
 void Eagle::render() const
 {
-	m_Sprites[static_cast<size_t>(m_currentState)]->render(m_position, m_size, m_rotation);
+	m_Sprites[static_cast<size_t>(m_currentState)]->render(m_position, m_size, m_rotation, m_layer);
 }
 
 void Eagle::update(const uint64_t delta)

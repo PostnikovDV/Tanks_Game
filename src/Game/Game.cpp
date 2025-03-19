@@ -109,6 +109,7 @@ bool Game::init()
                                     0.0000001f
                                     , glm::vec2(0.f, 0.f)
                                     , glm::vec2(16.f, 16.f)
+                                    , 0.f
     );
 
     m_level = std::make_unique<Level>(ResourceManager::getLevels()[1]);

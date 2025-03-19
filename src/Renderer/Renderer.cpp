@@ -16,4 +16,16 @@ namespace RenderEngine
 	{
 		glClearColor(r, g, b, alpha);
 	}
+
+	void Renderer::setDepthTest(const bool enable)
+	{
+		if (enable)
+		{
+			glEnable(GL_DEPTH_TEST);
+		}
+		else
+		{
+			glDisable(GL_DEPTH_TEST);
+		}
+	}
 }

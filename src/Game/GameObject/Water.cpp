@@ -2,8 +2,8 @@
 #include "../../Renderer/Sprite.h"
 #include "../../Resources/ResourceManager.h"
 
-Water::Water(const glm::vec2& position, const glm::vec2& size, const float rotation)
-	: IGameObject(position, size, rotation)
+Water::Water(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
+	: IGameObject(position, size, rotation, layer)
 	, m_pSprite(ResourceManager::getSprite("water"))
 	, m_spriteAnimator(m_pSprite)
 	, m_blockOffSets{
@@ -30,5 +30,5 @@ void Water::update(const uint64_t delta)
 
 void Water::renderWater(const EWaterLocation eBrickLovation) const
 {
-	m_pSprite->render(m_position + m_blockOffSets[static_cast<size_t>(eBrickLovation)], m_size / 2.f, m_rotation, m_spriteAnimator.getCurrentFrame());
+	m_pSprite->render(m_position + m_blockOffSets[static_cast<size_t>(eBrickLovation)], m_size / 2.f, m_rotation, m_spriteAnimator.getCurrentFrame(), m_layer);
 }

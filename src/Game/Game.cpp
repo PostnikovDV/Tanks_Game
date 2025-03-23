@@ -99,6 +99,11 @@ bool Game::init()
         return false;
     }
 
+    m_level = std::make_unique<Level>(ResourceManager::getLevels()[1]);
+
+    m_windowSize.x = static_cast<int>(m_level->getLevelWidth());
+    m_windowSize.y = static_cast<int>(m_level->getLevelHight());
+
     glm::mat4 projectionMatrix = glm::ortho(0.f, static_cast<float>(m_windowSize.x), 0.f, static_cast<float>(m_windowSize.y), -100.f, 100.f);
 
     pSpriteShaderProgram->use();
@@ -112,7 +117,14 @@ bool Game::init()
                                     , 0.f
     );
 
-    m_level = std::make_unique<Level>(ResourceManager::getLevels()[1]);
-
     return true;
+}
+
+size_t Game::getCurrentLevelWidth() const
+{ 
+    return m_level->getLevelWidth();
+}
+size_t Game::getCurrentLevelHeigh() const
+{
+    return m_level->getLevelHight();
 }

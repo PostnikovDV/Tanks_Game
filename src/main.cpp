@@ -19,7 +19,7 @@ void glfwWindowCallBack(GLFWwindow* windowPtr, int width, int heigth)
     g_windowSize.x = width;
     g_windowSize.y = heigth;
 
-    const float aspect_ratio = 13.f / 14.f;
+    const float aspect_ratio = static_cast<float>(s_game->getCurrentLevelWidth()) / s_game->getCurrentLevelHeigh();
 
     unsigned int viewPortWidth = g_windowSize.x;
     unsigned int viewPortHeight = g_windowSize.y;
@@ -96,6 +96,7 @@ int main(int argc, char** argv)
         ResourceManager::setExecutablePath(argv[0]);
 
         bool gameActive =  s_game->init();
+        glfwSetWindowSize(windowPtr, static_cast<int>(s_game->getCurrentLevelWidth()), static_cast<int>(s_game->getCurrentLevelHeigh()));
 
         auto lastTime = std::chrono::high_resolution_clock::now();
 

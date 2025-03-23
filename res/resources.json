@@ -183,6 +183,12 @@
 			"initialSubTexture": "ice"
 		},
 		{
+			"name": "border",
+			"textureAtlas": "mapTextureAtlas_8x8",
+			"shader": "spriteShader",
+			"initialSubTexture": "border"
+		},
+		{
 			"name": "eagle",
 			"textureAtlas": "mapTextureAtlas_16x16",
 			"shader": "spriteShader",

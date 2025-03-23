@@ -5,6 +5,7 @@
 #include "GameObject/Ice.h"
 #include "GameObject/Water.h"
 #include "GameObject/Eagle.h"
+#include "GameObject/Border.h"
 
 #define BLOCK_SIZE 16
 
@@ -86,13 +87,13 @@ Level::Level(const std::vector<std::string> levelDescription)
 
 	m_width = levelDescription[0].length();
 	m_height = levelDescription.size();
-	m_mapObject.reserve(m_width * m_height);
+	m_mapObject.reserve(m_width * m_height + 4);
 
-	unsigned int currentBottomOffset{static_cast<unsigned int>(BLOCK_SIZE * (m_height - 1))};
+	unsigned int currentBottomOffset{static_cast<unsigned int>(BLOCK_SIZE * (m_height - 1)) + BLOCK_SIZE / 2};
 
 	for (const auto& currentRow : levelDescription)
 	{
-		unsigned int currentLeftOffset{ 0 };
+		unsigned int currentLeftOffset{ BLOCK_SIZE };
 		for (const auto currentElement : currentRow)
 		{
 			m_mapObject.emplace_back(createGameObjectFromDescription(currentElement, glm::vec2(currentLeftOffset, currentBottomOffset), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f));
@@ -101,6 +102,18 @@ Level::Level(const std::vector<std::string> levelDescription)
 
 		currentBottomOffset -= BLOCK_SIZE;
 	}
+
+	// Bottom border
+	m_mapObject.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0.f), glm::vec2(m_width * BLOCK_SIZE,BLOCK_SIZE / 2), 0.f, 0.f));
+
+	// Top border
+	m_mapObject.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, m_height * BLOCK_SIZE + BLOCK_SIZE / 2), glm::vec2(m_width * BLOCK_SIZE, BLOCK_SIZE / 2), 0.f, 0.f));
+
+	// Left border
+	m_mapObject.emplace_back(std::make_shared<Border>(glm::vec2(0, 0), glm::vec2( BLOCK_SIZE, (m_height + 1) * BLOCK_SIZE), 0.f, 0.f));
+
+	// Right border
+	m_mapObject.emplace_back(std::make_shared<Border>(glm::vec2((m_width + 1) * BLOCK_SIZE, 0), glm::vec2(2 * BLOCK_SIZE, (m_height + 1) * BLOCK_SIZE), 0.f, 0.f));
 }
 
 void Level::render() const
@@ -124,4 +137,15 @@ void Level::update(const uint64_t delta)
 			currentObject->update(delta);
 		}
 	}
+}
+
+
+size_t  Level::getLevelWidth() const
+{
+	return (m_width + 3) * BLOCK_SIZE;
+}
+
+size_t  Level::getLevelHight() const
+{
+	return (m_height + 1) * BLOCK_SIZE;
 }

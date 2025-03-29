@@ -112,8 +112,8 @@ bool Game::init()
 
     m_pTank = std::make_unique<Tank>(
                                     0.0000001f
-                                    , glm::vec2(0.f, 0.f)
-                                    , glm::vec2(16.f, 16.f)
+                                    , m_level->getPlayerRespawn(Level::ETypeRespawn::player2)
+                                    , glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE)
                                     , 0.f
     );
 

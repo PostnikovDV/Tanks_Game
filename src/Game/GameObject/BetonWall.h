@@ -12,7 +12,6 @@ namespace RenderEngine
 class BetonWall : public IGameObject
 {
 public:
-
 	enum class EBetonWallType
 	{
 		All,

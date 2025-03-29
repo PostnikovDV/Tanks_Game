@@ -85,6 +85,13 @@ Level::Level(const std::vector<std::string> levelDescription)
 		std::cerr << "Level is empty!" << std::endl;
 	}
 
+	m_playerRespawn_1 = { BLOCK_SIZE * (m_width / 2 - 1), BLOCK_SIZE / 2 };
+	m_playerRespawn_2 = { BLOCK_SIZE * (m_width / 2 + 3), BLOCK_SIZE / 2 };
+	
+	m_enemyRespawn_1 = { BLOCK_SIZE, BLOCK_SIZE * m_height - BLOCK_SIZE / 2 };
+	m_enemyRespawn_2 = { BLOCK_SIZE * (m_width / 2 + 1), BLOCK_SIZE * m_height - BLOCK_SIZE / 2};
+	m_enemyRespawn_3 = { BLOCK_SIZE * m_width, BLOCK_SIZE * m_height - BLOCK_SIZE / 2 };
+
 	m_width = levelDescription[0].length();
 	m_height = levelDescription.size();
 	m_mapObject.reserve(m_width * m_height + 4);
@@ -96,7 +103,27 @@ Level::Level(const std::vector<std::string> levelDescription)
 		unsigned int currentLeftOffset{ BLOCK_SIZE };
 		for (const auto currentElement : currentRow)
 		{
-			m_mapObject.emplace_back(createGameObjectFromDescription(currentElement, glm::vec2(currentLeftOffset, currentBottomOffset), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f));
+			switch (currentElement)
+			{
+			case 'K':
+				m_playerRespawn_1 = { currentLeftOffset, currentBottomOffset };
+				break;
+			case 'L':
+				m_playerRespawn_2 = { currentLeftOffset, currentBottomOffset };
+				break;
+			case 'M':
+				m_enemyRespawn_1 = { currentLeftOffset, currentBottomOffset };
+				break;
+			case 'N':
+				m_enemyRespawn_2 = { currentLeftOffset, currentBottomOffset };
+				break;
+			case 'O':
+				m_enemyRespawn_3 = { currentLeftOffset, currentBottomOffset };
+				break;
+			default:
+				m_mapObject.emplace_back(createGameObjectFromDescription(currentElement, glm::vec2(currentLeftOffset, currentBottomOffset), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.f));
+				break;
+			}
 			currentLeftOffset += BLOCK_SIZE;
 		}
 
@@ -127,7 +154,6 @@ void Level::render() const
 	}
 }
 
-
 void Level::update(const uint64_t delta)
 {
 	for (const auto currentObject : m_mapObject)
@@ -139,7 +165,6 @@ void Level::update(const uint64_t delta)
 	}
 }
 
-
 size_t  Level::getLevelWidth() const
 {
 	return (m_width + 3) * BLOCK_SIZE;
@@ -148,4 +173,29 @@ size_t  Level::getLevelWidth() const
 size_t  Level::getLevelHight() const
 {
 	return (m_height + 1) * BLOCK_SIZE;
+}
+
+const glm::ivec2& Level::getPlayerRespawn(ETypeRespawn respawnType)
+{
+	switch (respawnType)
+	{
+	case Level::ETypeRespawn::player1:
+		return m_playerRespawn_1;
+		break;
+	case Level::ETypeRespawn::player2:
+		return m_playerRespawn_2;
+		break;
+	case Level::ETypeRespawn::enemy1:
+		return m_enemyRespawn_1;
+		break;
+	case Level::ETypeRespawn::enemy2:
+		return m_enemyRespawn_2;
+		break;
+	case Level::ETypeRespawn::enemy3:
+		return m_enemyRespawn_3;
+		break;
+	default:
+		return m_playerRespawn_1;
+		break;
+	}
 }

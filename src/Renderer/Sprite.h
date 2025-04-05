@@ -18,14 +18,14 @@ namespace RenderEngine
 
 		struct FrameDescription
 		{
-			FrameDescription(const glm::vec2 pLeftBottomUV, const glm::vec2 pRightTopUV, const uint64_t pDuration) 
+			FrameDescription(const glm::vec2 pLeftBottomUV, const glm::vec2 pRightTopUV, const double pDuration) 
 				: leftBottomUV(pLeftBottomUV), rightTopUV(pRightTopUV), duration(pDuration)
 			{
 			}
 			glm::vec2 leftBottomUV;
 			glm::vec2 rightTopUV;
 
-			uint64_t duration;
+			double duration;
 		};
 
 		Sprite(
@@ -41,7 +41,7 @@ namespace RenderEngine
 
 		void render(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer = 0, const size_t frameId = 0) const;
 
-		uint64_t getFrameDuration(const size_t frameId) const;
+		double getFrameDuration(const size_t frameId) const;
 		size_t getFramesCount() const;
 
 		void insertFrames(std::vector<FrameDescription> framesDescription);

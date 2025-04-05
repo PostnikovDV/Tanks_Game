@@ -80,11 +80,6 @@ void BrickWall::render() const
 	renderBrick(EBrickLocation::BottomRight);
 }
 
-void BrickWall::update(const uint64_t)
-{
-
-}
-
 void BrickWall::renderBrick(const EBrickLocation eBrickLovation) const
 {
 	const EBrickState state = m_CurrentBrickState[static_cast<size_t>(eBrickLovation)];

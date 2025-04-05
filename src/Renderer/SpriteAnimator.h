@@ -15,7 +15,7 @@ namespace RenderEngine
 	private:
 		std::shared_ptr<Sprite> m_Sprite;
 		size_t m_currentFrame{ 0 };
-		uint64_t m_currentFrameDuration;
-		uint64_t m_currentAnimationTime{ 0 };
+		double m_currentFrameDuration;
+		double m_currentAnimationTime{ 0 };
 	};
 }

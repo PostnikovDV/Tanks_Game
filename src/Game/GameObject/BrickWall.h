@@ -57,8 +57,6 @@ public:
 	BrickWall(EBrickWallType blockType, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer);
 
 	void render() const override;
-	void update(const uint64_t) override;
-
 private:
 	void renderBrick(const EBrickLocation eBrickLovation) const;
 

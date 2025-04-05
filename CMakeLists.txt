@@ -51,6 +51,9 @@ add_executable(${PROJECT_NAME}
 	src/Game/GameObject/Eagle.h
 	src/Game/GameObject/Border.cpp
 	src/Game/GameObject/Border.h
+
+	src/System/Timer.cpp
+	src/System/Timer.h
 	)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

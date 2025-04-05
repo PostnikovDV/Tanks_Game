@@ -12,7 +12,3 @@ void Border::render() const
 {
 	m_Sprite->render(m_position, m_size, m_rotation, m_layer);
 }
-
-void Border::update(const uint64_t)
-{
-}

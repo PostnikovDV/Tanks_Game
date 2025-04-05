@@ -4,6 +4,7 @@
 
 #include "IGameObject.h"
 #include "../../Renderer/SpriteAnimator.h"
+#include "../../System/Timer.h"
 
 namespace RenderEngine
 {
@@ -22,7 +23,7 @@ public:
 	};
 
 	Tank(
-		const float velocity
+		const double velocity
 		, const glm::vec2& position
 		, const glm::vec2& size
 		, const float layer
@@ -32,7 +33,7 @@ public:
 
 	void setOrientation(const EOrientation orient);
 	void move(const bool move);
-	void update(const uint64_t delta);
+	void update(const double delta);
 
 private:
 	EOrientation m_eOrientation{ EOrientation::Top };
@@ -46,8 +47,19 @@ private:
 	RenderEngine::SpriteAnimator m_spriteAnimatorLeft;
 	RenderEngine::SpriteAnimator m_spriteAnimatorRight;
 
+	std::shared_ptr<RenderEngine::Sprite> m_pSpriteRespawn;
+	RenderEngine::SpriteAnimator m_spriteAnimatorRespawn;
+
+	std::shared_ptr<RenderEngine::Sprite> m_pSpriteShield;
+	RenderEngine::SpriteAnimator m_spriteAnimatorShield;
+
+	Timer m_spawnTimer;
+	Timer m_shieldTimer;
+
 	bool m_move{ false };
-	float m_velocity;
+	bool m_isSpawning;
+	bool m_hasShield;
+	double m_velocity;
 
 	glm::vec2 m_moveOffset;
 };

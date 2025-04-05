@@ -208,15 +208,15 @@
 			"frames": [
 				{
 					"subTexture": "water1",
-					"duration": 500000000
+					"duration": 500
 				},
 				{
 					"subTexture": "water2",
-					"duration": 500000000
+					"duration": 500
 				},
 				{
 					"subTexture": "water3",
-					"duration": 500000000
+					"duration": 500
 				}
 			]
 		},
@@ -244,12 +244,12 @@
 			"frames": [
 				{
 					"subTexture": "yellowType1_Left1",
-					"duration": 500000000
+					"duration": 500
 				},
 
 				{
 					"subTexture": "yellowType1_Left2",
-					"duration": 500000000
+					"duration": 500
 				}
 			]
 		},
@@ -261,11 +261,11 @@
 			"frames": [
 				{
 					"subTexture": "yellowType1_Bottom1",
-					"duration": 500000000
+					"duration": 500
 				},
 				{
 					"subTexture": "yellowType1_Bottom2",
-					"duration": 500000000
+					"duration": 500
 				}
 			]
 		},
@@ -277,11 +277,59 @@
 			"frames": [
 				{
 					"subTexture": "yellowType1_Right1",
-					"duration": 500000000
+					"duration": 500
 				},
 				{
 					"subTexture": "yellowType1_Right2",
-					"duration": 500000000
+					"duration": 500
+				}
+			]
+		},
+		{
+			"name": "respawn",
+			"textureAtlas": "mapTextureAtlas_16x16",
+			"shader": "spriteShader",
+			"initialSubTexture": "respawn1",
+			"frames": [
+				{
+					"subTexture": "respawn1",
+					"duration": 100
+				},
+				{
+					"subTexture": "respawn2",
+					"duration": 100
+				},
+				{
+					"subTexture": "respawn3",
+					"duration": 100
+				},
+				{
+					"subTexture": "respawn4",
+					"duration": 100
+				},
+				{
+					"subTexture": "respawn3",
+					"duration": 100
+				},
+				{
+					"subTexture": "respawn2",
+					"duration": 100
+				}
+			]
+		},
+		{
+			"name": "shield",
+			"textureAtlas": "mapTextureAtlas_16x16",
+			"shader": "spriteShader",
+			"initialSubTexture": "shield1",
+			"frames": [
+				{
+					"subTexture": "shield1",
+					"duration": 50
+				},
+				{
+					"subTexture": "shield2",
+					"duration": 50
 				}
 			]
 		}

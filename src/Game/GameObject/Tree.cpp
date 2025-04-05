@@ -22,11 +22,6 @@ void Tree::render() const
 	renderTree(ETreeLocation::BottomRight);
 }
 
-void Tree::update(const uint64_t)
-{
-
-}
-
 void Tree::renderTree(const ETreeLocation eBrickLovation) const
 {
 	m_Sprite->render(m_position + m_blockOffSets[static_cast<size_t>(eBrickLovation)], m_size / 2.f, m_rotation, m_layer);

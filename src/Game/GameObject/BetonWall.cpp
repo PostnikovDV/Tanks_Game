@@ -67,11 +67,6 @@ void BetonWall::render() const
 	renderBeton(EBetonLocation::BottomRight);
 }
 
-void BetonWall::update(const uint64_t)
-{
-
-}
-
 void BetonWall::renderBeton(const EBetonLocation eBrickLovation) const
 {
 	const EBlockState state = m_CurrentBlockState[static_cast<size_t>(eBrickLovation)];

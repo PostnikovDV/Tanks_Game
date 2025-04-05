@@ -22,11 +22,6 @@ void Ice::render() const
 	renderIce(EIceLocation::BottomRight);
 }
 
-void Ice::update(const uint64_t)
-{
-
-}
-
 void Ice::renderIce(const EIceLocation eBrickLovation) const
 {
 	m_Sprite->render(m_position + m_blockOffSets[static_cast<size_t>(eBrickLovation)], m_size / 2.f, m_rotation, m_layer);

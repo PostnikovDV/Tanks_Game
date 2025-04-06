@@ -23,7 +23,7 @@ public:
 	};
 
 	Tank(
-		const double velocity
+		const double maxVelocity
 		, const glm::vec2& position
 		, const glm::vec2& size
 		, const float layer
@@ -32,8 +32,9 @@ public:
 	void render() const;
 
 	void setOrientation(const EOrientation orient);
-	void move(const bool move);
 	void update(const double delta);
+	double getMaxVelocity();
+	void setVelocity(const double velocity) override;
 
 private:
 	EOrientation m_eOrientation{ EOrientation::Top };
@@ -56,10 +57,7 @@ private:
 	Timer m_spawnTimer;
 	Timer m_shieldTimer;
 
-	bool m_move{ false };
 	bool m_isSpawning;
 	bool m_hasShield;
-	double m_velocity;
-
-	glm::vec2 m_moveOffset;
+	double m_maxVelocity;
 };

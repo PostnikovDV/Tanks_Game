@@ -4,7 +4,7 @@
 
 
 Tank::Tank(
-	const double velocity
+	const double maxVelocity
 	, const glm::vec2& position
 	, const glm::vec2& size
 	, const float layer)
@@ -21,8 +21,7 @@ Tank::Tank(
 	, m_pSpriteShield(ResourceManager::getSprite("shield"))
 	, m_spriteAnimatorRespawn(m_pSpriteRespawn)
 	, m_spriteAnimatorShield(m_pSpriteShield)
-	, m_velocity(velocity)
-	, m_moveOffset(glm::vec2(0.f, 1.f))
+	, m_maxVelocity(maxVelocity)
 	, m_isSpawning(true)
 	, m_hasShield(false)
 {
@@ -67,9 +66,10 @@ void Tank::render() const
 		default:
 			break;
 		}
+
 		if (m_hasShield)
 		{
-			m_pSpriteShield->render(m_position, m_size, m_rotation, m_layer, m_spriteAnimatorShield.getCurrentFrame());
+			m_pSpriteShield->render(m_position, m_size, m_rotation, m_layer + 0.01f, m_spriteAnimatorShield.getCurrentFrame());
 		}
 	}
 }
@@ -81,29 +81,24 @@ void Tank::setOrientation(const EOrientation orient)
 	switch (m_eOrientation)
 	{
 	case Tank::EOrientation::Top:
-		m_moveOffset.x = 0.f;
-		m_moveOffset.y = 1.f;
+		m_direction.x = 0.f;
+		m_direction.y = 1.f;
 		break;
 	case Tank::EOrientation::Bottom:
-		m_moveOffset.x = 0.f;
-		m_moveOffset.y = -1.f;
+		m_direction.x = 0.f;
+		m_direction.y = -1.f;
 		break;
 	case Tank::EOrientation::Left:
-		m_moveOffset.x = -1.f;
-		m_moveOffset.y = 0.f;
+		m_direction.x = -1.f;
+		m_direction.y = 0.f;
 		break;
 	case Tank::EOrientation::Right:
-		m_moveOffset.x = 1.f;
-		m_moveOffset.y = 0.f;
+		m_direction.x = 1.f;
+		m_direction.y = 0.f;
 		break;
 	default:
 		break;
 	}
-}
-
-void Tank::move(const bool move)
-{
-	m_move = move;
 }
 
 void Tank::update(const double delta)
@@ -122,11 +117,8 @@ void Tank::update(const double delta)
 			m_spriteAnimatorShield.update(delta);
 			m_shieldTimer.update(delta);
 		}
-		if (m_move)
+		if (m_velocity > 0)
 		{
-			m_position.x += static_cast<float>(delta * m_velocity * m_moveOffset.x);
-			m_position.y += static_cast<float>(delta * m_velocity * m_moveOffset.y);
-
 			switch (m_eOrientation)
 			{
 			case Tank::EOrientation::Top:
@@ -145,5 +137,18 @@ void Tank::update(const double delta)
 				break;
 			}
 		}
+	}
+}
+
+double Tank::getMaxVelocity()
+{
+	return m_maxVelocity;
+}
+
+void Tank::setVelocity(const double velocity)
+{
+	if (!m_isSpawning)
+	{
+		m_velocity = velocity;
 	}
 }

@@ -54,6 +54,9 @@ add_executable(${PROJECT_NAME}
 
 	src/System/Timer.cpp
 	src/System/Timer.h
+
+	src/Physics/PhysicsEngine.cpp
+	src/Physics/PhysicsEngine.h
 	)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

@@ -5,6 +5,7 @@
 
 #include "Resources/ResourceManager.h"
 #include "Renderer/Renderer.h"
+#include "Physics/PhysicsEngine.h"
 
 #include <chrono>
 #include "Game/Game.h"
@@ -95,6 +96,8 @@ int main(int argc, char** argv)
     {
         ResourceManager::setExecutablePath(argv[0]);
 
+        PhysicsEngine::init();
+
         bool gameActive =  s_game->init();
         glfwSetWindowSize(windowPtr, static_cast<int>(3 * s_game->getCurrentLevelWidth()), static_cast<int>(3 * s_game->getCurrentLevelHeigh()));
 
@@ -109,9 +112,10 @@ int main(int argc, char** argv)
             lastTime = currentTime;
 
             s_game->update(duration);
+            PhysicsEngine::update(duration);
+
             /* Render here */
             RenderEngine::Renderer::setClear();
-
             s_game->render();
 
             /* Swap front and back buffers */

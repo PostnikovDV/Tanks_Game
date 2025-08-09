@@ -11,7 +11,6 @@ namespace RenderEngine
 	{
 	public:
 
-
 		struct SubTexture2D
 		{
 			glm::vec2 leftBottomUV;
@@ -27,7 +26,6 @@ namespace RenderEngine
 
 			}
 		};
-
 
 		Texture2D(const GLuint Width, const GLuint height, 
 			const unsigned char* data, 

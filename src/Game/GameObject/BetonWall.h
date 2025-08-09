@@ -43,7 +43,7 @@ public:
 
 	void render() const override;
 private:
-	void renderBeton(const EBetonLocation eBetonLovation) const;
+	void renderBeton(const EBetonLocation eBetonLoñation) const;
 
 	std::array<EBlockState, 4> m_CurrentBlockState;
 	std::shared_ptr<RenderEngine::Sprite> m_Sprite;

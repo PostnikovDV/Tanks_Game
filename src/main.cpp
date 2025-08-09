@@ -14,7 +14,6 @@
 glm::ivec2 g_windowSize(13 * 16, 14 * 16);
 std::unique_ptr<Game> s_game(std::make_unique<Game>(g_windowSize));
 
-
 void glfwWindowCallBack(GLFWwindow* windowPtr, int width, int heigth)
 {
     g_windowSize.x = width;
@@ -95,8 +94,7 @@ int main(int argc, char** argv)
 
     {
         ResourceManager::setExecutablePath(argv[0]);
-
-        PhysicsEngine::init();
+        Physics::PhysicsEngine::init();
 
         bool gameActive =  s_game->init();
         glfwSetWindowSize(windowPtr, static_cast<int>(3 * s_game->getCurrentLevelWidth()), static_cast<int>(3 * s_game->getCurrentLevelHeigh()));
@@ -112,7 +110,7 @@ int main(int argc, char** argv)
             lastTime = currentTime;
 
             s_game->update(duration);
-            PhysicsEngine::update(duration);
+            Physics::PhysicsEngine::update(duration);
 
             /* Render here */
             RenderEngine::Renderer::setClear();

@@ -170,7 +170,7 @@ void Tank::setVelocity(const double velocity)
 
 void Tank::fire()
 {
-	if(m_readyToShot && !m_pCurrentBullet->isActive())
+	if(m_readyToShot && !m_pCurrentBullet->isActive() && !m_isSpawning)
 	{
 		m_pCurrentBullet->fire(m_position + m_size / 4.f + m_size * m_direction / 4.f, m_direction);
 		m_readyToShot = false;

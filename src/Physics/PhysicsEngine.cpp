@@ -40,23 +40,27 @@ void PhysicsEngine::update(const double delta)
 			for (const auto& currentObjectToCheck : objectsToCheck)
 			{
 				const auto& objectColliders = currentObjectToCheck->getColliders();
-				if (!objectColliders.empty())
+				if (currentObjectToCheck->collides(currentObject->getObjectType()) && !objectColliders.empty())
 				{
 					if (hasIntersection(colliders, newPosition, objectColliders, currentObjectToCheck->getCurrentPosition()))
 					{
 						hasCollision = true;
+						currentObjectToCheck->onCollision();
 						break;
 					}
 				}
 			}
-			if(!hasCollision)
+			if (!hasCollision)
 				position = newPosition;
 			else
+			{
 				if (direction.x != 0.f)
 					position = glm::vec2(static_cast<unsigned int>(position.x / 8.f + 0.5f) * 8, position.y);
 				else if (direction.y != 0.f)
 					position = glm::vec2(position.x, static_cast<unsigned int>(position.y / 8.f + 0.5f) * 8);
 
+				currentObject->onCollision();
+			}
 		}
 	}
 }
@@ -84,16 +88,16 @@ bool PhysicsEngine::hasIntersection(const std::vector<AABB>& colliders1, const g
 			const glm::vec2 currentCollider2BottomLeftWorld = collider2.botomLeft + posittion2;
 
 			if (currentCollider1BottomLeftWorld.x >= currentCollider2TopRightWorld.x)
-				return false;
+				continue;
 			if (currentCollider1TopRightWorld.x <= currentCollider2BottomLeftWorld.x)
-				return false;
-
+				continue;
 			if (currentCollider1BottomLeftWorld.y >= currentCollider2TopRightWorld.y)
-				return false;
+				continue;
 			if (currentCollider1TopRightWorld.y <= currentCollider2BottomLeftWorld.y)
-				return false;
+				continue;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 }//namespace Physics

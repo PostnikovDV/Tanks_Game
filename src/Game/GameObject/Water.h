@@ -27,6 +27,7 @@ public:
 
 	void render() const override;
 	void update(const double delta) override;
+	bool collides(const EObjectType objectType) override;
 
 private:
 	void renderWater(const EWaterLocation eBetonLovation) const;

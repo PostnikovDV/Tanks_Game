@@ -3,7 +3,7 @@
 #include "../../Resources/ResourceManager.h"
 
 Eagle::Eagle(const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-	: IGameObject(position, size, rotation, layer)
+	: IGameObject(EObjectType::Eagle, position, size, rotation, layer)
 	, m_currentState(EEagleState::Alive)
 	, m_Sprites{
 				ResourceManager::getSprite("eagle")

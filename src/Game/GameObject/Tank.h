@@ -10,11 +10,12 @@ namespace RenderEngine
 {
 	class Sprite;
 }
+class Bullet;
 
 class Tank : public IGameObject
 {
 public:
-	enum class EOrientation
+	enum class EOrientation : uint8_t
 	{
 		Top,
 		Bottom,
@@ -29,12 +30,13 @@ public:
 		, const float layer
 	);
 
-	void render() const;
+	void render() const override;
 
 	void setOrientation(const EOrientation orient);
 	void update(const double delta);
 	double getMaxVelocity();
 	void setVelocity(const double velocity) override;
+	void fire();
 
 private:
 	EOrientation m_eOrientation{ EOrientation::Top };
@@ -53,6 +55,8 @@ private:
 
 	std::shared_ptr<RenderEngine::Sprite> m_pSpriteShield;
 	RenderEngine::SpriteAnimator m_spriteAnimatorShield;
+
+	std::shared_ptr<Bullet> m_pCurrentBullet;
 
 	Timer m_spawnTimer;
 	Timer m_shieldTimer;

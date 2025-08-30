@@ -3,7 +3,7 @@
 #include "../../Resources/ResourceManager.h"
 
 BetonWall::BetonWall(EBetonWallType blockType, const glm::vec2& position, const glm::vec2& size, const float rotation, const float layer)
-	: IGameObject(position, size, rotation, layer)
+	: IGameObject(EObjectType::BetonWall, position, size, rotation, layer)
 	, m_CurrentBlockState{
 						EBlockState::Destroyed
 						, EBlockState::Destroyed

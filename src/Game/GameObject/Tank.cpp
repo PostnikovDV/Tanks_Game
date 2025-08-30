@@ -1,6 +1,8 @@
 #include "Tank.h"
+#include "Bullet.h"
 #include "../../Renderer/Sprite.h"
 #include "../../Resources/ResourceManager.h"
+#include "../../Physics/PhysicsEngine.h"
 
 
 Tank::Tank(
@@ -8,7 +10,7 @@ Tank::Tank(
 	, const glm::vec2& position
 	, const glm::vec2& size
 	, const float layer)
-	: IGameObject(position, size, 0.f, layer)
+	: IGameObject(EObjectType::Tank, position, size, 0.f, layer)
 	, m_pSpriteTop(ResourceManager::getSprite("tankSpriteTop"))
 	, m_pSpriteBottom(ResourceManager::getSprite("tankSpriteBottom"))
 	, m_pSpriteLeft(ResourceManager::getSprite("tankSpriteLeft"))
@@ -21,6 +23,7 @@ Tank::Tank(
 	, m_pSpriteShield(ResourceManager::getSprite("shield"))
 	, m_spriteAnimatorRespawn(m_pSpriteRespawn)
 	, m_spriteAnimatorShield(m_pSpriteShield)
+	, m_pCurrentBullet(std::make_shared<Bullet>(0.1, m_position + m_size / 4.f, m_size / 2.f, layer))
 	, m_maxVelocity(maxVelocity)
 	, m_isSpawning(true)
 	, m_hasShield(false)
@@ -41,6 +44,8 @@ Tank::Tank(
 	);
 
 	m_colliders.emplace_back(glm::vec2(0), m_size);
+
+	Physics::PhysicsEngine::addDynamicGameObject(m_pCurrentBullet);
 }
 
 void Tank::render() const
@@ -68,11 +73,11 @@ void Tank::render() const
 		default:
 			break;
 		}
-
 		if (m_hasShield)
-		{
 			m_pSpriteShield->render(m_position, m_size, m_rotation, m_layer + 0.01f, m_spriteAnimatorShield.getCurrentFrame());
-		}
+
+		if (m_pCurrentBullet->isActive())
+			m_pCurrentBullet->render();
 	}
 }
 
@@ -152,5 +157,13 @@ void Tank::setVelocity(const double velocity)
 	if (!m_isSpawning)
 	{
 		m_velocity = velocity;
+	}
+}
+
+void Tank::fire()
+{
+	if(!m_pCurrentBullet->isActive())
+	{
+		m_pCurrentBullet->fire(m_position + m_size / 4.f + m_size * m_direction / 4.f, m_direction);
 	}
 }

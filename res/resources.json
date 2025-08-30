@@ -332,6 +332,30 @@
 					"duration": 50
 				}
 			]
+		},
+		{
+			"name": "bullet_Top",
+			"textureAtlas": "mapTextureAtlas_8x8",
+			"shader": "spriteShader",
+			"initialSubTexture": "bullet_Top"
+		},
+		{
+			"name": "bullet_Bottom",
+			"textureAtlas": "mapTextureAtlas_8x8",
+			"shader": "spriteShader",
+			"initialSubTexture": "bullet_Bottom"
+		},
+		{
+			"name": "bullet_Left",
+			"textureAtlas": "mapTextureAtlas_8x8",
+			"shader": "spriteShader",
+			"initialSubTexture": "bullet_Left"
+		},
+		{
+			"name": "bullet_Right",
+			"textureAtlas": "mapTextureAtlas_8x8",
+			"shader": "spriteShader",
+			"initialSubTexture": "bullet_Right"
 		}
 	],
 

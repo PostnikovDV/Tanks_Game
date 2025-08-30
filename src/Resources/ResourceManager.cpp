@@ -337,6 +337,5 @@ bool ResourceManager::loadJsonResources(const std::string jsonPath)
 			m_levels.emplace_back(std::move(levelRows));
 		}
 	}
-
 	return true;
 }

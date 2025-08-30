@@ -60,8 +60,11 @@ private:
 
 	Timer m_spawnTimer;
 	Timer m_shieldTimer;
+	Timer m_reloadTimer;
 
 	bool m_isSpawning;
 	bool m_hasShield;
 	double m_maxVelocity;
+
+	bool m_readyToShot{ true };
 };

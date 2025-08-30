@@ -31,6 +31,7 @@ public:
 
 	void render() const override;
 	bool isActive() const { return m_isActive; }
+	void setActive(bool isActive) { m_isActive = isActive; }
 	void fire(const glm::vec2& position, const glm::vec2& direction);
 	void onCollision() override;
 private:
@@ -40,6 +41,8 @@ private:
 	std::shared_ptr<RenderEngine::Sprite> m_pSpriteLeft;
 	std::shared_ptr<RenderEngine::Sprite> m_pSpriteRight;
 	double m_maxVelocity;
+
+	Timer m_Timer;
 
 	bool m_isActive{ false }; //  находится ли снаряд в полете
 };

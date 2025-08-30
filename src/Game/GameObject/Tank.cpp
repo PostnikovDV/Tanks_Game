@@ -43,6 +43,13 @@ Tank::Tank(
 		}
 	);
 
+	m_reloadTimer.setCallback([&]()
+		{
+			m_readyToShot = true;
+			m_reloadTimer.start(1000);
+		}
+	);
+
 	m_colliders.emplace_back(glm::vec2(0), m_size);
 
 	Physics::PhysicsEngine::addDynamicGameObject(m_pCurrentBullet);
@@ -144,6 +151,7 @@ void Tank::update(const double delta)
 				break;
 			}
 		}
+		m_reloadTimer.update(delta);
 	}
 }
 
@@ -162,8 +170,9 @@ void Tank::setVelocity(const double velocity)
 
 void Tank::fire()
 {
-	if(!m_pCurrentBullet->isActive())
+	if(m_readyToShot && !m_pCurrentBullet->isActive())
 	{
 		m_pCurrentBullet->fire(m_position + m_size / 4.f + m_size * m_direction / 4.f, m_direction);
+		m_readyToShot = false;
 	}
 }
